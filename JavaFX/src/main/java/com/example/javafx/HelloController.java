@@ -23,7 +23,7 @@ public class HelloController {
     private Label welcomeText;
 
     @FXML
-    private TextField IDCustomer; // change to customerID
+    private TextField customerID; // change to customerID
 
     @FXML
     private ListView<String> invoiceList;
@@ -34,9 +34,10 @@ public class HelloController {
     }
 
 
-    private void stationInfo() throws URISyntaxException, IOException, InterruptedException { // change to generateInvoice
+    @FXML
+    private void generateInvoice() throws URISyntaxException, IOException, InterruptedException { // change to generateInvoice
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(API + "/stations/" + IDCustomer.getText()))
+                .uri(new URI(API + "/invoices/pending/" + customerID.getText()))
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
@@ -44,13 +45,13 @@ public class HelloController {
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        IDCustomer.setText("");
+        customerID.setText("");
     }
 
     @FXML
     private void downloadInvoice() throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(API + "/stations/" + IDCustomer.getText()))
+                .uri(new URI(API + "/invoices/" + customerID.getText()))
                 .GET()
                 .build();
 

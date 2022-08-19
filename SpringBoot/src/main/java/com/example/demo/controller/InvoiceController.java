@@ -26,7 +26,7 @@ public class InvoiceController {
         return customerID;
     }
 
-    @GetMapping(value ="/stations/{id}",produces = "application/json")
+    @GetMapping(value ="/invoices/{id}",produces = "application/json")
     public List<Invoice> readOne(@PathVariable int id) {
         List<Invoice> invoices = new ArrayList<>();
 
