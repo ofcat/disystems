@@ -37,7 +37,7 @@ public class HelloController {
     @FXML
     private void generateInvoice() throws URISyntaxException, IOException, InterruptedException { // change to generateInvoice
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(API + "/invoices/pending/" + customerID.getText()))
+                .uri(new URI(API + "/invoices/toBeGenerated/" + customerID.getText()))
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 

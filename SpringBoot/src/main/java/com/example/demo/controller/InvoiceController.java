@@ -32,8 +32,11 @@ public class InvoiceController {
 
         try (Connection conn = connect()) {
 
-            String sql = "SELECT * FROM customerdata where customer_id = " + id;
+            String sql = "SELECT * FROM customerdata where customer_id = ?";
+
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -41,7 +44,7 @@ public class InvoiceController {
                 Invoice invoice = new Invoice();
 
                 invoice.kwh = resultSet.getInt("kwh");
-                invoice.customerID = resultSet.getString("customer_id");
+                invoice.customerID = resultSet.getInt("customer_id");
                 invoice.stationID = resultSet.getInt("station_id");
                 invoice.date = resultSet.getDate("datetime");
 

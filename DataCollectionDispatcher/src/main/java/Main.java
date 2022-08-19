@@ -1,8 +1,10 @@
+import service.TestConsumeService;
+
 public class Main {
-    private final static String BROKER_URL = "tcp://localhost:6616";
+    private final static String BROKER_URL = "tcp://localhost:61616";
 
     public static void main(String[] args) {
-//        DrinkService foodService = new DrinkService("DRINK", "DONE", BROKER_URL);
-//        foodService.run();
+        TestConsumeService foodService = new TestConsumeService("DRINK", "DONE", BROKER_URL);
+        foodService.run();
     }
 }

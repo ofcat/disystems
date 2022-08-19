@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Invoice {
 
-    public String customerID;
+    public int customerID;
 
     public int stationID;
 
@@ -14,7 +14,7 @@ public class Invoice {
 
     public Invoice(){}
 
-    public Invoice(String customerID,int stationID, int kwh, Date date) {
+    public Invoice(int customerID,int stationID, int kwh, Date date) {
         this.customerID = customerID;
         this.stationID = stationID;
         this.kwh = kwh;
