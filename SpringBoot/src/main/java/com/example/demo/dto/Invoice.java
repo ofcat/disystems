@@ -1,16 +1,23 @@
 package com.example.demo.dto;
 
+import java.util.Date;
+
 public class Invoice {
 
-    public String type;
-    public String status;
     public String customerID;
+
+    public int stationID;
+
+    public int kwh;
+
+    public Date date;
 
     public Invoice(){}
 
-    public Invoice(String type, String status, String customerID) {
-        this.type = type;
-        this.status = "send...";
+    public Invoice(String customerID,int stationID, int kwh, Date date) {
         this.customerID = customerID;
+        this.stationID = stationID;
+        this.kwh = kwh;
+        this.date = date;
     }
 }
