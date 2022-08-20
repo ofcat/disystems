@@ -18,16 +18,19 @@ public class InvoiceController {
     private final static String BROKER_URL = "tcp://localhost:61616"; //6616
     private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/chstation?user=admin&password=password";
 
-    @PostMapping("/invoices/{type}/{customerID}")
-    public String sendIDCustomer(@PathVariable String type, @PathVariable String customerID) {
+    @PostMapping("/invoices/{customerID}")
+    public String createRequest(@PathVariable String type, @PathVariable String customerID) {
 
+        //:TODO add id validation (only integers allowed)
         Producer.send(customerID, type, BROKER_URL);
 
         return customerID;
     }
 
     @GetMapping(value ="/invoices/{id}",produces = "application/json")
-    public List<Invoice> readOne(@PathVariable int id) {
+    public List<Invoice> downloadPDF(@PathVariable int id) {
+
+        //:todo change method to return pdf
         List<Invoice> invoices = new ArrayList<>();
 
         try (Connection conn = connect()) {

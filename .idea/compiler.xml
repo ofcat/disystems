@@ -11,8 +11,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JavaFX" />
-        <module name="DataCollectionDispatcher" />
+        <module name="StationDataCollector" />
         <module name="SpringBoot" />
+        <module name="DataCollectionReciever" />
         <module name="demo" />
       </profile>
     </annotationProcessing>
