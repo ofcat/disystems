@@ -23,8 +23,6 @@ public class DataCollectionReceiverService extends BaseService{
 
     @Override
     protected String executeInternal(String input) {
-        String jobId = UUID.randomUUID().toString();
-        System.out.println("here");
 
         try (Connection conn = connect()) {
             customerList = new ArrayList<>();
@@ -47,15 +45,13 @@ public class DataCollectionReceiverService extends BaseService{
             while (resultSet.next()){
                 customerList.add(resultSet.getString("firstname"));
                 customerList.add(resultSet.getString("lastname"));
-                System.out.println(resultSet.getString("firstname"));
-                System.out.println(resultSet.getString("lastname"));
             }
             System.out.println("receiver" + customerList);
-            return input + customerList.toString();
+            return customerList.toString() + input ;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return "error";
+            return "Something went wrong :(";
         }
 
 

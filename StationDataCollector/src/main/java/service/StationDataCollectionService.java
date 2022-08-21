@@ -47,7 +47,7 @@ public class StationDataCollectionService extends BaseService {
             return invoices.toString();
         } catch (SQLException e) {
             e.printStackTrace();
-            return "error";
+            return "Something went wrong :(";
         }
 
 

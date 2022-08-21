@@ -75,10 +75,10 @@ checkfornewInvoice();
 
 
         try {
-            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices/"+x);
+            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/"+x);
             Desktop.getDesktop().open(myFile);
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
