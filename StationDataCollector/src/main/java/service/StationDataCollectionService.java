@@ -22,6 +22,7 @@ public class StationDataCollectionService extends BaseService {
     @Override
     protected String executeInternal(String input) {
         //String jobId = UUID.randomUUID().toString();
+        System.out.println("here");
         List<String> invoices = new ArrayList<>();
         try (Connection conn = connect()) {
 
@@ -40,12 +41,9 @@ public class StationDataCollectionService extends BaseService {
                 invoices.add(resultSet.getString("kwh"));
                 invoices.add(resultSet.getString("datetime"));
 
-                System.out.println(resultSet.getString("customer_id"));
-                System.out.println(resultSet.getString("station_id"));
-                System.out.println(resultSet.getString("kwh"));
-                System.out.println(resultSet.getString("datetime"));
 
             }
+            System.out.println("collector" + invoices);
             return invoices.toString();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,13 +1,11 @@
 package service;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
-public class TestConsumeService extends BaseService{
+public class DataCollectionReceiverService extends BaseService{
 
     private final String id;
 
@@ -15,7 +13,7 @@ public class TestConsumeService extends BaseService{
 
     private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/chstation?user=admin&password=password";
 
-    public TestConsumeService(String inDestination, String outDestination, String brokerUrl) {
+    public DataCollectionReceiverService(String inDestination, String outDestination, String brokerUrl) {
         super(inDestination, outDestination, brokerUrl);
 
         this.id = UUID.randomUUID().toString();
@@ -26,13 +24,15 @@ public class TestConsumeService extends BaseService{
     @Override
     protected String executeInternal(String input) {
         String jobId = UUID.randomUUID().toString();
+        System.out.println("here");
 
         try (Connection conn = connect()) {
             customerList = new ArrayList<>();
 
-            String sql = "select * from customerList where cusotmer_id = ?";
+            String sql = "select * from customerList where customer_id = ?";
 
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
 
             input = input.replace("[", "");
             input = input.replace("]", ",");
@@ -50,10 +50,11 @@ public class TestConsumeService extends BaseService{
                 System.out.println(resultSet.getString("firstname"));
                 System.out.println(resultSet.getString("lastname"));
             }
-            System.out.println("ok");
+            System.out.println("receiver" + customerList);
             return input + customerList.toString();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             return "error";
         }
 

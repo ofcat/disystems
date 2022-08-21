@@ -30,7 +30,7 @@ public class InvoiceController {
 
     @GetMapping(value ="/invoices/{id}")
     public String downloadPDF(@PathVariable String id) {
-        File directoryPath = new File("/Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices/");
+        File directoryPath = new File("/Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices");
         // /Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices
         String[] contents = directoryPath.list();
         String name = "";

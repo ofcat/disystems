@@ -50,7 +50,7 @@ public class HelloController {
         HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-
+checkfornewInvoice();
         customerID.setText("");
     }
     String x="";
