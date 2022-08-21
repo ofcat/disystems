@@ -39,14 +39,13 @@ public class DataCollectionReceiverService extends BaseService{
             preparedStatement.setString(1, input.split(",")[0]);
 
 
-            //preparedStatement.execute();
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 customerList.add(resultSet.getString("firstname"));
                 customerList.add(resultSet.getString("lastname"));
             }
-            System.out.println("receiver" + customerList);
+            System.out.println("Data Collection Receiver (" + this.id + ") processed this data: " + customerList);
             return customerList.toString() + input ;
 
         } catch (SQLException e) {

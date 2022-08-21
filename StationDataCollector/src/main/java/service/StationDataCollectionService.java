@@ -21,8 +21,7 @@ public class StationDataCollectionService extends BaseService {
 
     @Override
     protected String executeInternal(String input) {
-        //String jobId = UUID.randomUUID().toString();
-        System.out.println("here");
+
         List<String> invoices = new ArrayList<>();
         try (Connection conn = connect()) {
 
@@ -43,7 +42,7 @@ public class StationDataCollectionService extends BaseService {
 
 
             }
-            System.out.println("collector" + invoices);
+            System.out.println("Station Data Collector (" + this.id + ") collected this data: " + invoices);
             return invoices.toString();
         } catch (SQLException e) {
             e.printStackTrace();

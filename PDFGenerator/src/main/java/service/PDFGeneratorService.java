@@ -34,15 +34,10 @@ public class PDFGeneratorService extends BaseService {
     @Override
     protected String executeInternal(String input) throws DocumentException, IOException, URISyntaxException {
 
-        System.out.println(input);
-
         input = input.replace("[", "");
         input = input.replace("]", ",");
 
-
         String[] invoiceData = input.split(",");
-
-        System.out.println(Arrays.toString(invoiceData));
 
         String firstName = invoiceData[0];
         String lastName = invoiceData[1];
@@ -57,7 +52,7 @@ public class PDFGeneratorService extends BaseService {
         Document document = new Document();
 
         String date = String.valueOf(new Date());
-        PdfWriter.getInstance(document, new FileOutputStream("Customer[" + customerID + "]" + date + ".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("CustomerID[" + customerID + "]" + date + ".pdf"));
 
         document.open();
 
@@ -120,6 +115,7 @@ public class PDFGeneratorService extends BaseService {
 
         document.close();
 
+        System.out.println("PDF Generator (" + this.id + ") used this data to generate a pdf: " + Arrays.toString(invoiceData));
         return input;
 
 

@@ -47,15 +47,16 @@ public class HelloController {
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
+        //todo: check if this can be removed
         HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-checkfornewInvoice();
+        checkfornewInvoice();
         customerID.setText("");
     }
     String x="";
     public String checkfornewInvoice() throws URISyntaxException, IOException, InterruptedException {
-
+//todo: make a separate function
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/invoices/" +  customerID.getText()))
                 .build();
@@ -64,7 +65,7 @@ checkfornewInvoice();
                 HttpResponse.BodyHandlers.ofString());
 
 
-
+//todo: check if this can be removed
         output.setText(response.body());
         System.out.println(response.body());
         x= response.body();
@@ -72,10 +73,10 @@ checkfornewInvoice();
     }
 
     public void downloadPdf(MouseEvent mouseEvent) {
-
+// todo: make it a button which opens a directory with saved pdfs
 
         try {
-            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/"+x);
+            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/invoices"+x);
             Desktop.getDesktop().open(myFile);
         } catch (IOException e) {
             e.printStackTrace();
