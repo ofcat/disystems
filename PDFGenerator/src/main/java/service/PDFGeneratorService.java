@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class StationDataCollectionService extends BaseService {
+public class PDFGeneratorService extends BaseService {
 
     private final String id;
     private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/chstation?user=admin&password=password";
 
 
-    public StationDataCollectionService(String inDestination, String outDestination, String brokerUrl) {
+    public PDFGeneratorService(String inDestination, String outDestination, String brokerUrl) {
         super(inDestination, outDestination, brokerUrl);
 
         this.id = UUID.randomUUID().toString();
 
-        System.out.println("Station Data Collector (" + this.id + ") started...");
+        System.out.println("PDF Generator (" + this.id + ") started...");
     }
 
     @Override

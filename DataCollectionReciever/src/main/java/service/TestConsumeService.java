@@ -20,7 +20,7 @@ public class TestConsumeService extends BaseService{
 
         this.id = UUID.randomUUID().toString();
 
-        System.out.println("Data Dispatcher (" + this.id + ") started...");
+        System.out.println("Data Collection Receiver (" + this.id + ") started...");
     }
 
     @Override

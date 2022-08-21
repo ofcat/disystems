@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,47 +20,28 @@ public class InvoiceController {
     private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/chstation?user=admin&password=password";
 
     @PostMapping("/invoices/{customerID}")
-    public String createRequest(@PathVariable String type, @PathVariable String customerID) {
+    public String createRequest( @PathVariable String customerID) {
 
         //:TODO add id validation (only integers allowed)
-        Producer.send(customerID, type, BROKER_URL);
+        Producer.send(customerID, "StationDataGathering", BROKER_URL);
 
         return customerID;
     }
 
-    @GetMapping(value ="/invoices/{id}",produces = "application/json")
-    public List<Invoice> downloadPDF(@PathVariable int id) {
-
-        //:todo change method to return pdf
-        List<Invoice> invoices = new ArrayList<>();
-
-        try (Connection conn = connect()) {
-
-            String sql = "SELECT * FROM customerdata where customer_id = ?";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            preparedStatement.setInt(1, id);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Invoice invoice = new Invoice();
-
-                invoice.kwh = resultSet.getInt("kwh");
-                invoice.customerID = resultSet.getInt("customer_id");
-                invoice.stationID = resultSet.getInt("station_id");
-                invoice.date = resultSet.getDate("datetime");
-
-                invoices.add(invoice);
+    @GetMapping(value ="/invoices/{id}")
+    public String downloadPDF(@PathVariable String id) {
+        File directoryPath = new File("/Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices/");
+        // /Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices
+        String[] contents = directoryPath.list();
+        String name = "";
+        for (String content : contents) {
+            if (content.contains(id)) {
+                //list.add(content);
+                name = content;
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
         }
+        return name;
 
-        return invoices;
     }
 
     private Connection connect() throws SQLException {

@@ -15,6 +15,7 @@
         <module name="SpringBoot" />
         <module name="DataCollectionReciever" />
         <module name="demo" />
+        <module name="PDFGenerator" />
       </profile>
     </annotationProcessing>
   </component>

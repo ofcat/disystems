@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.awt.Desktop;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,6 +27,9 @@ public class HelloController {
 
     @FXML
     private TextField customerID; // change to customerID
+
+    @FXML
+    private TextField output; // change
 
     @FXML
     private ListView<String> invoiceList;
@@ -47,29 +53,58 @@ public class HelloController {
 
         customerID.setText("");
     }
+    String x="";
+    public String checkfornewInvoice() throws URISyntaxException, IOException, InterruptedException {
 
-    @FXML
-    private void downloadInvoice() throws URISyntaxException, IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(API + "/invoices/" + customerID.getText()))
-                .GET()
+                .uri(URI.create("http://localhost:8080/invoices/" +  customerID.getText()))
                 .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request,
+                HttpResponse.BodyHandlers.ofString());
 
-        HttpResponse<String> response = HttpClient.newBuilder()
-                .build()
-                .send(request, HttpResponse.BodyHandlers.ofString());
 
-        // System.out.println(response.body());
-        JSONArray jsonArray = new JSONArray(response.body());
 
-        ObservableList<String> invoices = FXCollections.observableArrayList();
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            invoices.add(jsonObject.toString());
-        }
-
-        invoiceList.setItems(invoices);
+        output.setText(response.body());
+        System.out.println(response.body());
+        x= response.body();
+        return response.body();
     }
+
+    public void downloadPdf(MouseEvent mouseEvent) {
+
+
+        try {
+            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/PDFGenerator/invoices/"+x);
+            Desktop.getDesktop().open(myFile);
+        } catch (IOException ignored) {
+
+        }
+    }
+
+
+//    @FXML
+//    private void downloadInvoice() throws URISyntaxException, IOException, InterruptedException {
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(new URI(API + "/invoices/" + customerID.getText()))
+//                .GET()
+//                .build();
+//
+//        HttpResponse<String> response = HttpClient.newBuilder()
+//                .build()
+//                .send(request, HttpResponse.BodyHandlers.ofString());
+//
+//        // System.out.println(response.body());
+//        JSONArray jsonArray = new JSONArray(response.body());
+//
+//        ObservableList<String> invoices = FXCollections.observableArrayList();
+//
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject jsonObject = jsonArray.getJSONObject(i);
+//            invoices.add(jsonObject.toString());
+//        }
+//
+//        invoiceList.setItems(invoices);
+//    }
 
 }
