@@ -39,12 +39,13 @@ public class HelloController {
         HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
+
         //uncomment to update pdf list on "Generate Invoice" button press
         //updateInvoicesList();
         customerID.setText("");
     }
     String x="";
-    public void updateInvoicesList() throws URISyntaxException, IOException, InterruptedException {
+    public void updateInvoicesList() throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/invoices/" +  ID))
@@ -70,40 +71,13 @@ public class HelloController {
 
     }
 
-    public void downloadPdf(MouseEvent mouseEvent) {
-// todo: make it a button which opens a directory with saved pdfs
-
+    public void openPDF() {
         try {
-            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/"+x);
+            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/"+invoiceList.getSelectionModel().getSelectedItem());
             Desktop.getDesktop().open(myFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-//    @FXML
-//    private void downloadInvoice() throws URISyntaxException, IOException, InterruptedException {
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(new URI(API + "/invoices/" + customerID.getText()))
-//                .GET()
-//                .build();
-//
-//        HttpResponse<String> response = HttpClient.newBuilder()
-//                .build()
-//                .send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        // System.out.println(response.body());
-//        JSONArray jsonArray = new JSONArray(response.body());
-//
-//        ObservableList<String> invoices = FXCollections.observableArrayList();
-//
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//            invoices.add(jsonObject.toString());
-//        }
-//
-//        invoiceList.setItems(invoices);
-//    }
 
 }

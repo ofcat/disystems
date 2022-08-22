@@ -32,7 +32,7 @@
 <!--               <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" />-->
 <!--               <TextField fx:id="output" onMouseClicked="#downloadPdf" prefHeight="372.0" prefWidth="297.0" />-->
                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="298.0" text="Update" onAction="#updateInvoicesList" />
-               <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" />
+               <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" onMouseClicked="#openPDF"/>
             </children></VBox>
       </items></SplitPane>
 </VBox>
