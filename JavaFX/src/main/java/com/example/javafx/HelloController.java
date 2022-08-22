@@ -23,22 +23,12 @@ public class HelloController {
 
     private static final String API = "http://localhost:8080";
     @FXML
-    private Label welcomeText;
-
-    @FXML
     private TextField customerID; // change to customerID
-
     @FXML
     private TextField output; // change
 
     @FXML
     private ListView<String> invoiceList;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to Invoice Controller");
-    }
-
 
     @FXML
     private void generateInvoice() throws URISyntaxException, IOException, InterruptedException { // change to generateInvoice
@@ -56,7 +46,7 @@ public class HelloController {
     }
     String x="";
     public String checkfornewInvoice() throws URISyntaxException, IOException, InterruptedException {
-//todo: make a separate function
+// todo: make a separate function
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/invoices/" +  customerID.getText()))
                 .build();
@@ -65,7 +55,7 @@ public class HelloController {
                 HttpResponse.BodyHandlers.ofString());
 
 
-//todo: check if this can be removed
+// todo: check if this can be removed
         output.setText(response.body());
         System.out.println(response.body());
         x= response.body();
@@ -76,7 +66,7 @@ public class HelloController {
 // todo: make it a button which opens a directory with saved pdfs
 
         try {
-            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/invoices"+x);
+            File myFile = new File("/Users/vasilii/IdeaProjects/ChargingStation/"+x);
             Desktop.getDesktop().open(myFile);
         } catch (IOException e) {
             e.printStackTrace();

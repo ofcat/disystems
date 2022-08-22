@@ -29,7 +29,17 @@ public class StationDataCollectionService extends BaseService {
 
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
-            preparedStatement.setInt(1, Integer.parseInt(input));
+            // since we are passing string through the queue we need to parse int to perform sql query
+            // using try catch to make sure there would not be any issues with invalid user input for customerID
+            int customerID;
+            try {
+                customerID = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                customerID = 0;
+            }
+
+
+            preparedStatement.setInt(1, customerID);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
