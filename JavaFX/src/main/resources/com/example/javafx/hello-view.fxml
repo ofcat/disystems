@@ -21,16 +21,13 @@
                <TextField fx:id="customerID"/>
                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" text="Generate Invoice"
                        onAction="#generateInvoice"/>
-<!--               <TextField fx:id=""/>-->
-<!--               <Button mnemonicParsing="false" text="Download Invoice" onAction="#downloadInvoice" />-->
 
             </children>
          </VBox>
          <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="100.0" text="Recent Invoices" />
-<!--               <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" />-->
-<!--               <TextField fx:id="output" onMouseClicked="#downloadPdf" prefHeight="372.0" prefWidth="297.0" />-->
+
                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="298.0" text="Update" onAction="#updateInvoicesList" />
                <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" onMouseClicked="#openPDF"/>
             </children></VBox>

@@ -35,7 +35,6 @@ public class InvoiceController {
         return customerID;
     }
 
-    //todo: figure out how to set where the file is saved
     @GetMapping(value = "/invoices/{customerID}")
     public List<String> downloadPDF(@PathVariable String customerID) {
         List<String> recentInvoices = new ArrayList<>();

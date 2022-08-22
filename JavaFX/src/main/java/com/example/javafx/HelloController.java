@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 import java.awt.Desktop;
 
@@ -44,7 +43,6 @@ public class HelloController {
         //updateInvoicesList();
         customerID.setText("");
     }
-    String x="";
     public void updateInvoicesList() throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
