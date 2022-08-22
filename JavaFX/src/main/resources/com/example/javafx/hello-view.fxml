@@ -9,7 +9,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <Label prefHeight="23.0" prefWidth="141.0" text="Invioce Controller">
+   <Label prefHeight="23.0" prefWidth="141.0" text="Invoice Controller">
       <font>
          <Font size="18.0" />
       </font>
@@ -18,15 +18,18 @@
       <items>
          <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
-               <TextField />
-               <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" text="Generate Invoice" />
-               <TextField />
-               <Button mnemonicParsing="false" text="Download Invoice" />
+               <TextField fx:id="customerID"/>
+               <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" text="Generate Invoice"
+                       onAction="#generateInvoice"/>
+
             </children>
          </VBox>
          <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="100.0" text="Recent Invoices" />
+
+               <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="298.0" text="Update" onAction="#updateInvoicesList" />
+               <ListView prefHeight="372.0" prefWidth="297.0" fx:id="invoiceList" onMouseClicked="#openPDF"/>
             </children></VBox>
       </items></SplitPane>
 </VBox>
