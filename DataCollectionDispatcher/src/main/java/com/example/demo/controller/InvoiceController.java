@@ -11,6 +11,8 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -23,34 +25,36 @@ public class InvoiceController {
     private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/chstation?user=admin&password=password";
 
     @PostMapping("/invoices/{customerID}")
-    public String createRequest( @PathVariable String customerID) {
+    public String createRequest(@PathVariable String customerID) {
 
-
-        Producer.send(customerID, "StationDataGathering", BROKER_URL);
-
+        if (CUSTOMERS.contains(customerID)) {
+            Producer.send(customerID, "StationDataGathering", BROKER_URL);
+        } else {
+            downloadPDF("not a customer");
+        }
         return customerID;
     }
 
     //todo: figure out how to set where the file is saved
-    @GetMapping(value ="/invoices/{id}")
-    public String downloadPDF(@PathVariable String id) {
+    @GetMapping(value = "/invoices/{customerID}")
+    public List<String> downloadPDF(@PathVariable String customerID) {
+        List<String> recentInvoices = new ArrayList<>();
 
-        if (CUSTOMERS.contains(id)){
+        if (CUSTOMERS.contains(customerID)) {
 
             File directoryPath = new File("/Users/vasilii/IdeaProjects/ChargingStation/");
-            String[] contents = directoryPath.list();
-            String fileName = "";
+            String[] filesList = directoryPath.list();
 
-            for (String content : contents) {
-                if (content.contains(id)) {
-                    fileName = content;
+            for (String file : filesList) {
+                if (file.contains(customerID)) {
+                    recentInvoices.add(file);
                 }
             }
 
-            return fileName;
-        } else{
-            return "404 Not Found";
+        } else {
+            recentInvoices.add("404 Not Found");
         }
+        return recentInvoices;
 
 
     }
@@ -58,8 +62,6 @@ public class InvoiceController {
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(DB_CONNECTION);
     }
-
-
 
 
 }

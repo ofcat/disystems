@@ -3,12 +3,12 @@ package com.example.javafx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.awt.Desktop;
 
 import java.io.File;
@@ -18,15 +18,13 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 
 public class HelloController {
 
     private static final String API = "http://localhost:8080";
     @FXML
-    private TextField customerID; // change to customerID
-    @FXML
-    private TextField output; // change
-
+    private TextField customerID;
     @FXML
     private ListView<String> invoiceList;
 
@@ -41,25 +39,33 @@ public class HelloController {
         HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-        checkfornewInvoice();
+        updateInvoicesList();
         customerID.setText("");
     }
     String x="";
-    public String checkfornewInvoice() throws URISyntaxException, IOException, InterruptedException {
+    public void updateInvoicesList() throws URISyntaxException, IOException, InterruptedException {
 // todo: make a separate function
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/invoices/" +  customerID.getText()))
+                .GET()
                 .build();
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> response = HttpClient.newBuilder()
+                .build()
+                .send(request, HttpResponse.BodyHandlers.ofString());
 
 
-// todo: check if this can be removed
-        output.setText(response.body());
-        System.out.println(response.body());
-        x= response.body();
-        return response.body();
+        ObservableList<String> invoices = FXCollections.observableArrayList();
+
+        String responseModified = response.body().replace("[", "")
+                .replace("]", "")
+                .replace("\"", "");
+        String[] pdfs = responseModified.split(",");
+
+        invoices.addAll(Arrays.asList(pdfs));
+
+        invoiceList.setItems(invoices);
+
     }
 
     public void downloadPdf(MouseEvent mouseEvent) {

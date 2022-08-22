@@ -52,7 +52,7 @@ public class PDFGeneratorService extends BaseService {
         Document document = new Document();
 
         String date = String.valueOf(new Date());
-        PdfWriter.getInstance(document, new FileOutputStream("CustomerID[" + customerID + "]" + date + ".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("CustomerID(" + customerID + ")" + date + ".pdf"));
 
         document.open();
 
