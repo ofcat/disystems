@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.awt.Desktop;
 
@@ -25,6 +23,7 @@ public class HelloController {
     private static final String API = "http://localhost:8080";
     @FXML
     private TextField customerID;
+    private String ID;
     @FXML
     private ListView<String> invoiceList;
 
@@ -35,18 +34,20 @@ public class HelloController {
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
-        //todo: check if this can be removed
+        ID = String.valueOf(customerID.getText());
+
         HttpResponse<String> response = HttpClient.newBuilder()
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-        updateInvoicesList();
+        //uncomment to update pdf list on "Generate Invoice" button press
+        //updateInvoicesList();
         customerID.setText("");
     }
     String x="";
     public void updateInvoicesList() throws URISyntaxException, IOException, InterruptedException {
-// todo: make a separate function
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/invoices/" +  customerID.getText()))
+                .uri(URI.create("http://localhost:8080/invoices/" +  ID))
                 .GET()
                 .build();
 
@@ -60,6 +61,7 @@ public class HelloController {
         String responseModified = response.body().replace("[", "")
                 .replace("]", "")
                 .replace("\"", "");
+
         String[] pdfs = responseModified.split(",");
 
         invoices.addAll(Arrays.asList(pdfs));
