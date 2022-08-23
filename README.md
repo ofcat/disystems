@@ -22,7 +22,7 @@ The workflow is as follows:
 - The PDF generator generates the invoice and saves it on the file system
 - The UI checks every couple seconds if the invoice is available
 
-## Specifications
+## Requirements
 
 There are four services that work on the message queue:
 - DataCollectionDispatcher
@@ -50,8 +50,19 @@ There are two API routes:
 
 ## Dependencies 
 ### Postgres SQL database
-Using docker to spin up psql container.
-
+Download and set up psql database:
+```
+docker pull postgres
+```
+```
+docker run --rm --detach --name containername -e POSTGRES_USER=username -e POSTGRES_PASSWORD=password -v data:/var/lib/postgresql/data -p 5432:5432 postgres
+```
 ### ApacheMQ
-Install apacheMQ from the official website and use this command to start up the service.
-COMMAND 
+Install apacheMQ from the official website:
+https://activemq.apache.org/components/classic/download/
+
+Navigate to the bin folder of ApacheMQ and execute start command:
+```
+./activemq start
+```
+
